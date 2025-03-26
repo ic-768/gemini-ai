@@ -12,7 +12,6 @@ import (
 	"github.com/google/generative-ai-go/genai"
 	"google.golang.org/api/iterator"
 
-	// Use proper Go module imports
 	"gemini/api"
 	"gemini/models"
 )
@@ -140,4 +139,3 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Server is running"))
 }
-

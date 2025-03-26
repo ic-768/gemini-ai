@@ -26,6 +26,7 @@ func NewGeminiClient(apiKey string, model string, maxTokens int) (*GeminiClient,
 	if model == "" {
 		model = "gemini-1.5-flash"
 	}
+
 	if maxTokens <= 0 {
 		maxTokens = 4000
 	}
@@ -52,4 +53,3 @@ func (g *GeminiClient) GenerateContentStream(ctx context.Context, prompt string)
 	textPrompt := genai.Text(prompt)
 	return generativeModel.GenerateContentStream(ctx, textPrompt)
 }
-
