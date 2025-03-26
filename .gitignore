@@ -1,0 +1,29 @@
+# Environment variables
+.env
+
+# Go binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go build and test files
+*.test
+*.out
+/bin/
+/pkg/
+
+# Go workspace file
+go.work
+
+# Log files
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Build output
+/build/
+/dist/ 
