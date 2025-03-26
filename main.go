@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/generative-ai-go/genai"
 	"github.com/joho/godotenv"
+	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
 
@@ -29,23 +30,29 @@ func main() {
 	}
 	defer client.Close()
 
-	model := client.GenerativeModel("gemma-3-27b-it")
+	model := client.GenerativeModel("gemini-1.5-flash")
+	model.SetMaxOutputTokens(4000)
 	prompt := genai.Text("What is the color of the sky?")
 
-	resp, err := model.GenerateContent(ctx, prompt)
-	if err != nil {
-		log.Fatal(err)
-	}
+	iter := model.GenerateContentStream(ctx, prompt)
 
-	// Print the actual content
-	if len(resp.Candidates) > 0 {
-		for _, part := range resp.Candidates[0].Content.Parts {
-			if text, ok := part.(genai.Text); ok {
-				fmt.Print(string(text))
+	for {
+		resp, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// Print each chunk as it arrives
+		if len(resp.Candidates) > 0 {
+			for _, part := range resp.Candidates[0].Content.Parts {
+				if text, ok := part.(genai.Text); ok {
+					fmt.Print(string(text))
+				}
 			}
 		}
-		fmt.Println() // Add newline at end
-	} else {
-		fmt.Println("No response generated")
 	}
+	fmt.Println() // Add newline at end
 }
