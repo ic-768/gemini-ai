@@ -176,7 +176,7 @@
                         } else if (line.startsWith("data:")) {
                           // Extract data starting right after the "data:" prefix
                           // The substring(5) extracts everything after "data:"
-                          const dataContent = line.substring(5);
+                          const dataContent = line.substring(6);
 
                           // For the first data line
                           if (eventData === "") {
