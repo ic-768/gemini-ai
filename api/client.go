@@ -48,7 +48,8 @@ func (g *GeminiClient) Close() {
 func (g *GeminiClient) GenerateContentStream(ctx context.Context, prompt string) *genai.GenerateContentResponseIterator {
 	generativeModel := g.Client.GenerativeModel(g.Model)
 	generativeModel.SetMaxOutputTokens(int32(g.Tokens))
-	
+
 	textPrompt := genai.Text(prompt)
 	return generativeModel.GenerateContentStream(ctx, textPrompt)
-} 
+}
+

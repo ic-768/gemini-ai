@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	
+
 	"gemini/api"
 	"gemini/handlers"
 )
@@ -39,12 +39,12 @@ func main() {
 
 	// Create handlers
 	streamHandler := handlers.NewStreamHandler(geminiClient)
-	
+
 	// Configure routes
 	// Serve static files from the "static" directory
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/", fs)
-	
+
 	// API endpoints
 	http.Handle("/api/generate", streamHandler)
 	http.HandleFunc("/health", handlers.HealthCheckHandler)
@@ -54,7 +54,7 @@ func main() {
 	if port == "" {
 		port = "8080" // Default port
 	}
-	
+
 	log.Printf("Server starting on port %s", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal("Server error:", err)
